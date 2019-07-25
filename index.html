@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://storage.googleapis.com/assets.meld.cx/agent/1.0.18/Agent.js"></script>
+</head>
+<body>
+    <h1>MeldCX AgentM Accessibility Example App</h1>
+    <hr>
+    <br>
+    <label id="aria-label1" style="visibility: hidden" aria-label="Please enter your middle initial"></label>
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr);">
+        <div>
+            <label for="firstName">First Name</label>
+            <input type="text" name="firstName" tabIndex="0" aria-label="Please enter your First Name here" aria-required="true"/>
+        </div>
+        <div>
+            <input type="text" name="initial" tabIndex="1" aria-labelledby="aria-label1"/>
+        </div>
+        <div>
+            <label for="lastName">Last Name</label>
+            <input type="text" name="lastName" tabIndex="2" aria-disabled="true"/>
+        </div>
+        <div>
+            <label tabIndex="3" aria-label="Please Enter your Date of Birth here" aria-flowto="dobDate"></label>
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" name="dob"/>
+            <select id="dobDate" tabIndex="4" aria-label="Select the date of your birth" style="visibility: visible;">
+                <option value="01">1st</option>
+                <option value="02">2nd</option>
+                <option value="03">3rd</option>
+                <option value="04">4th</option>
+                <option value="05">5th</option>
+                <option value="06">6th</option>
+                <option value="07">7th</option>
+                <option value="08">8th</option>
+                <option value="09">9th</option>
+                <option value="10">10th</option>
+                <option value="11">11th</option>
+                <option value="12">12th</option>
+                <option value="13">13th</option>
+                <option value="14">14th</option>
+                <option value="15">15th</option>
+                <option value="16">16th</option>
+                <option value="17">17th</option>
+                <option value="18">18th</option>
+                <option value="19">19th</option>
+                <option value="20">20th</option>
+                <option value="21">21st</option>
+                <option value="22">22nd</option>
+                <option value="23">23rd</option>
+                <option value="24">24th</option>
+                <option value="25">25th</option>
+                <option value="26">26th</option>
+                <option value="27">27th</option>
+                <option value="28">28th</option>
+                <option value="29">29th</option>
+                <option value="30">30th</option>
+                <option value="31">31st</option>
+            </select>
+            <select id="dobMonth" tabIndex="5" aria-label="Select the Month of your birth" style="visibility: visible;">
+                <option value="01">January</option>
+                <option value="02">February</option>
+                <option value="03">March</option>
+                <option value="04">April</option>
+                <option value="05">May</option>
+                <option value="06">June</option>
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+            </select>
+            <input id="dobYear" type="number" min="1900" max="2001" tabIndex="6" data-mcx-keyset="KB_LAYOUT_Numbers" aria-label="Enter the year of your birth" style="visibility: visible;"></input>
+        </div>
+        <div>
+            <label for="mobileNumber">Mobile Number</label>
+            <input type="text" name="mobileNumber" tabIndex="7" data-mcx-keyset="KB_LAYOUT_Numbers" aria-label="Please Enter your Mobile Number here"/>
+        </div>
+        <div>
+            <label for="favoriteColor">Favorite Color</label>
+            <select name="favoriteColor" tabIndex="8">
+                <option aria-posinset="First" selected="selected">Red</option>
+                <option>Green</option>
+                <option aria-posinset="Third" aria-setsize="A Bajillion">Blue</option>
+                <option aria-posinset="The fourth one" aria-setsize="A bunch">Fuschia</option>
+                <option aria-posinset="5" aria-setsize="6">Orange</option>
+                <option value="teal" aria-label="Teal, it is the color of the Port Adelaide Football Club">Teal</option>
+            </select>
+        </div>
+        <div>
+            <label for="chkConsent">Are you cool?</label>
+            <input name="chkConsent" type="checkbox" checked aria-checked="true" tabIndex="9"/>
+        </div>
+        <div>
+            <label tabIndex="10" aria-flowto="tshirtColor1" aria-label="Choose a color for your free t-shirt"></label>
+
+            <label for="tshirtColor1">Orange</label>
+            <input tabIndex="11" type="radio" id="tshirtColor1" checked name="tshirtColor">
+
+            <label for="tshirtColor2">Tye Die</label>
+            <input type="radio" id="tshirtColor2" name="tshirtColor">
+
+            <label for="tshirtColor3">Mauve</label>
+            <input type="radio" id="tshirtColor3" name="tshirtColor">
+        </div>
+        <div>
+            <input tabIndex="13" type="email" aria-label="Please Enter your email here" data-mcx-keyset="KB_LAYOUT_azSpaceHyphenBackspaceWeb"/>
+        </div>
+        <div>
+            <label for="rangeInput">What is the speed limit here?</label>
+            <input name="rangeInput" tabIndex="14" type="range" value="0" min="0" max="100" step="10"/>
+        </div>
+        <div>
+            <label for="favFood">What is your favourite food? I will give you some suggestions.</label>
+            <input tabIndex="15" type="text" name="favFood" list="favFoods"/>
+            <datalist id="favFoods">
+                <option value="Spaghetti Bolognaise">Spaghetti Bolognaise</option>
+                <option>Pizza</option>
+                <option value="Pumpkin Soup"></option>
+                <option>Chocolate Cake</option>
+            </datalist>
+        </div>
+        <div>
+            <button tabIndex="16" aria-label="Press Enter here to submit" onClick="console.log('Clicked')">Submit</button>
+        </div>
+    </div>
+    <script>
+        const elDOBYear = document.getElementById('dobYear');
+        elDOBYear.addEventListener('change', () => {
+            console.log('Change');
+            const date = document.getElementById('dobDate').value;
+            const month = document.getElementById('dobMonth').value;
+            const year = elDOBYear.value;
+
+            document.getElementById('dob').value = `${year}-${month}-${date}`;
+        });
+    </script>
+</body>
+</html>
