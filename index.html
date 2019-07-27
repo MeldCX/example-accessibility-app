@@ -85,7 +85,7 @@
         </div>
         <div>
             <label for="mobileNumber">Mobile Number</label>
-            <input type="text" name="mobileNumber" tabIndex="7" data-mcx-keyset="KB_LAYOUT_Numbers" aria-label="Please Enter your Mobile Number here"/>
+            <input type="text" name="mobileNumber" tabIndex="7" maxlength="10" minlength="10" data-mcx-keyset="KB_LAYOUT_Numbers" aria-label="Please Enter your Mobile Number here"/>
         </div>
         <div>
             <label for="favoriteColor">Favorite Color</label>
@@ -229,6 +229,12 @@
                                 <label for="chkInputRequired">Read Input is Required</label><br>
                                 <input type="checkbox" name="chkInputMaxLength" id="chkInputMaxLength">
                                 <label for="chkInputMaxLength">Read Input Max Length</label><br>
+                                <input type="checkbox" name="chkInputStep" id="chkInputStep">
+                                <label for="chkInputStep">Read Input Step Size</label><br>
+                                <input type="checkbox" name="chkInputMax" id="chkInputMax">
+                                <label for="chkInputMax">Read Max Value</label><br>
+                                <input type="checkbox" name="chkInputMin" id="chkInputMin">
+                                <label for="chkInputMin">Read Max Value</label><br>
                                 <input type="checkbox" name="chkInputReadOnly" id="chkInputReadOnly">
                                 <label for="chkInputReadOnly">Read Input is Read Only</label><br>
                                 <input type="checkbox" name="chkInputMinLength" id="chkInputMinLength">
@@ -244,11 +250,15 @@
                                 </fieldset>
                                 <fieldset style="line-height: 20px;">
                                     <legend>Label</legend>
-                                    <input type="checkbox" name="chkButtonDisabled" id="chkButtonDisabled">
-                                    <label for="chkButtonDisabled">Read Button is Disabled</label><br>
+                                    <input type="checkbox" name="chkLabelTextContent" id="chkLabelTextContent">
+                                    <label for="chkLabelTextContent">Read Label Text Content</label><br>
                                 </fieldset>
                             </div>
                             <div>
+                                <input type="checkbox" name="chkId" id="chkId">
+                                <label for="chkId">Read Element ID</label><br>
+                                <input type="checkbox" name="chkName" id="chkName">
+                                <label for="chkName">Read Element Name</label><br>
                                 <input type="checkbox" name="chkTextContent" id="chkTextContent">
                                 <label for="chkTextContent">Read Text Content</label><br>
                                 <input type="checkbox" name="chkType" id="chkType">
@@ -341,14 +351,26 @@
             for (const [k, v] of Object.entries(configuration.elementProperties.input)) {
                 const name = k.slice(0, 1).toUpperCase() + k.slice(1);
                 if (v) document.getElementById(`chkInput${name}`).setAttribute('checked', '');
-                else if (document.getElementById(`chkInput${name}`).hasAttribute('checked')) document.getElementById(`chk${name}`).removeAttribute('checked');
+                else if (document.getElementById(`chkInput${name}`).hasAttribute('checked')) document.getElementById(`chkInput${name}`).removeAttribute('checked');
             }
 
             for (const [k, v] of Object.entries(configuration.elementProperties.button)) {
                 const name = k.slice(0, 1).toUpperCase() + k.slice(1);
                 if (v) document.getElementById(`chkButton${name}`).setAttribute('checked', '');
-                else if (document.getElementById(`chkButton${name}`).hasAttribute('checked')) document.getElementById(`chk${name}`).removeAttribute('checked');
+                else if (document.getElementById(`chkButton${name}`).hasAttribute('checked')) document.getElementById(`chkButton${name}`).removeAttribute('checked');
             }
+
+            for (const [k, v] of Object.entries(configuration.elementProperties.label)) {
+                const name = k.slice(0, 1).toUpperCase() + k.slice(1);
+                if (v) document.getElementById(`chkLabel${name}`).setAttribute('checked', '');
+                else if (document.getElementById(`chkLabel${name}`).hasAttribute('checked')) document.getElementById(`chkLabel${name}`).removeAttribute('checked');
+            }
+
+            if (configuration.elementProperties.id) document.getElementById('chkId').setAttribute('checked', '');
+            else if (document.getElementById('chkId').hasAttribute('checked')) document.getElementById('chkId').removeAttribute('checked');
+
+            if (configuration.elementProperties.name) document.getElementById('chkName').setAttribute('checked', '');
+            else if (document.getElementById('chkName').hasAttribute('checked')) document.getElementById('chkName').removeAttribute('checked');
 
             if (configuration.elementProperties.textContent) document.getElementById('chkTextContent').setAttribute('checked', '');
             else if (document.getElementById('chkTextContent').hasAttribute('checked')) document.getElementById('chkTextContent').removeAttribute('checked');
@@ -373,6 +395,8 @@
             config.settingMenus.voiceVolume = document.getElementById('chkVoiceVolume').checked;
             config.settingMenus.deviceVolume = document.getElementById('chkDeviceVolume').checked;
             config.elementProperties = {};
+            config.elementProperties.id = document.getElementById('chkId').checked;
+            config.elementProperties.name = document.getElementById('chkName').checked;
             config.elementProperties.type = document.getElementById('chkType').checked;
             config.elementProperties.textContent = document.getElementById('chkTextContent').checked;
             config.elementProperties.input = {};
@@ -390,6 +414,8 @@
             config.elementProperties.button = {};
             config.elementProperties.button.disabled = document.getElementById('chkButtonDisabled').checked;
             config.elementProperties.button.textContent = document.getElementById('chkButtonTextContent').checked;
+            config.elementProperties.label = {};
+            config.elementProperties.label.textContent = document.getElementById('chkLabelTextContent').checked;
             config.voiceVolume = {};
             config.voiceVolume.min = Number(document.getElementById('voiceVolumeMin').value);
             config.voiceVolume.max = Number(document.getElementById('voiceVolumeMax').value);
