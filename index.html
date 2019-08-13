@@ -5,10 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <script src="https://storage.googleapis.com/assets.meld.cx/agent/1.0.18/Agent.js"></script>
+    <script src="https://storage.googleapis.com/assets.meld.cx/agent/1.0.33/Agent.js"></script>
     <style>
         html, body {
             font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .overlay {
+            visibility: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            color: white;
+            background-color: black;
+            z-index: 9999;
+            font-size: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
         }
     </style>
 </head>
@@ -16,6 +33,13 @@
     <h1>MeldCX AgentM Accessibility Example App</h1>
     <hr>
     <br>
+    <p>
+        Dialog example can be found <a href="dialog.html">here</a>.
+    </p>
+    <p>
+        Example anchor link usage can be found <a href="#anchor">here</a>.
+    </p>
+    <a name="anchor"></a>
     <label id="aria-label1" style="visibility: hidden" aria-label="Please enter your middle initial"></label>
     <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 10px;">
         <div>
@@ -188,11 +212,20 @@
                 <input type="checkbox" name="chkSettingMenusAtStart" id="chkSettingMenusAtStart"/>
                 <label for="chkSettingMenusAtStart">Play Setting Menus at Startup time</label><br/>
                 <input type="checkbox" name="chkWaitToStart" id="chkWaitToStart"/>
-                <label for="chkWaitToStart">Wait for confirmation to start workflow</label><br/>
+                <label for="chkWaitToStart">Wait for confirmation to start workflow</label><br/><br/>
+                <label for="lstOverlayElement">Overlay Element when headphones plugged in</label>
+                <select id="lstOverlayElement">
+                    <option value="false">Disabled</option>
+                    <option value="true">Enabled (Use Built in)</option>
+                    <option value="overlayExample1">Enabled (Overlay Example 1)</option>
+                    <option value="overlayExample2">Enabled (Overlay Example 2)</option>
+                </select>
             </div>
             <div>
                 <fieldset style="line-height: 20px;">
                     <legend>Setting Menus</legend>
+                    <input type="checkbox" name="chkPrivacy" id="chkPrivacy"/>
+                    <label for="chkPrivacy">Privacy Menu</label><br/>
                     <input type="checkbox" name="chkVoiceVolume" id="chkVoiceVolume"/>
                     <label for="chkVoiceVolume">Voice Volume Menu</label><br/>
                     <input type="checkbox" name="chkDeviceVolume" id="chkDeviceVolume"/>
@@ -209,6 +242,33 @@
                 <fieldset>
                     <legend>Elements</legend>
                     <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 10px;">
+                            <fieldset style="line-height: 20px;">
+                                <legend>Presentation</legend>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Tag Name</th>
+                                            <th>Read as</th>
+                                            <th>Skipped</th>
+                                            <th>&nbsp;</th>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbdElementsConfig">
+
+                                    </tbody>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="text" id="txtTagName"/></td>
+                                            <td><input type="text" id="txtReadAs"/></td>
+                                            <td><input type="checkbox" id="chkSkipped"/></td>
+                                            <td colspan="2">
+                                                <button id="btnAddElement">Add</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </fieldset>
                             <fieldset style="line-height: 20px;">
                                 <legend>Input</legend>
                                 <input type="checkbox" name="chkInputId" id="chkInputId">
@@ -271,6 +331,12 @@
             <div style="text-align: right;"><button id="btnSaveConfig">Save</button></div>
         </div>
     </fieldset>
+    <div id="overlayExample1" class="overlay">
+        <div>This is my custom overlay element!!!!!</div>
+    </div>
+    <div id="overlayExample2" class="overlay">
+        <div>Example Overlay 2</div>
+    </div>
     <script>
         const elDOBYear = document.getElementById('dobYear');
         elDOBYear.addEventListener('change', () => {
@@ -282,11 +348,32 @@
             document.getElementById('dob').value = `${year}-${month}-${date}`;
         });
 
+        const lstOverlayElement = document.getElementById('lstOverlayElement');
+        lstOverlayElement.addEventListener('change', () => {
+            switch (lstOverlayElement.value) {
+                case 'false':
+                    console.info('Disabling overlay');
+                    window.mcxAccessibility.setOverlayElement(false);
+                    break;
+
+                case 'true':
+                    console.info('Enabling overlay using built in overlay element');
+                    window.mcxAccessibility.setOverlayElement(false);
+                    break;
+
+                default:
+                    console.info(`Enabling overlay using element from this page ${lstOverlayElement.value}`);
+                    window.mcxAccessibility.setOverlayElement(document.getElementById(lstOverlayElement.value));
+            }
+        });
+
         const waitForVoices = () => new Promise(resolve => {
             const synth = window.speechSynthesis;
             if (synth.getVoices().length) return resolve(synth.getVoices());
             synth.onvoiceschanged = () => resolve(synth.getVoices());
         });
+
+        let configuration = [];
 
         const init = async() => {
             console.log('init');
@@ -296,7 +383,7 @@
             elVoiceName.innerHTML = '';
             elSystemVoiceName.innerHTML = '';
 
-            const configuration = await window.Agent.Accessibility.getConfiguration();
+            configuration = await window.Agent.Accessibility.getConfiguration();
 
             console.log(configuration);
 
@@ -315,6 +402,8 @@
 
                     elSystemVoiceName.appendChild(option2);
                 }));
+
+            lstOverlayElement.value = configuration.overlay.toString();
 
             document.getElementById('deviceVolume').setAttribute('min', configuration.deviceVolume.min);
             document.getElementById('deviceVolume').setAttribute('max', configuration.deviceVolume.max);
@@ -377,10 +466,75 @@
 
             if (configuration.elementProperties.type) document.getElementById('chkType').setAttribute('checked', '');
             else if (document.getElementById('chkType').hasAttribute('checked')) document.getElementById('chkType').removeAttribute('checked');
+
+            const renderElementsConfig = () => {
+                let index = 0;
+                const tbdElementsConfig = document.getElementById('tbdElementsConfig');
+                tbdElementsConfig.innerHTML = '';
+                for (const elemConfig of configuration.elements) {
+                    const tr = document.createElement('tr');
+                    const [tdTagName, tdReadAs, tdSkipped, tdDelete] = Array.from({length: 4}).map(() => document.createElement('td'));
+
+                    tdTagName.textContent = elemConfig.tag;
+                    tdReadAs.textContent = elemConfig.as;
+
+                    const chkSkipped = document.createElement('input')
+                    chkSkipped.setAttribute('type', 'checkbox');
+                    chkSkipped.checked = elemConfig.skip;
+                    chkSkipped.addEventListener('change', ({target}) => {
+                        configuration.elements = configuration.elements.map((el, idx) => {
+                            if (idx === index) el.skip = target.checked;
+
+                            return el;
+                        });
+                    });
+                    tdSkipped.appendChild(chkSkipped);
+
+                    const btnDelete = document.createElement('button');
+                    btnDelete.textContent = 'Delete';
+                    btnDelete.addEventListener('click', () => {
+                        console.log('btnDelete', index);
+                        configuration.elements = configuration.elements.reduce((a, v) => {
+                            if (v.tag === elemConfig.tag) a.push(v);
+
+                            return a;
+                        }, []);
+
+                        renderElementsConfig();
+                    });
+                    tdDelete.appendChild(btnDelete);
+
+                    tr.appendChild(tdTagName);
+                    tr.appendChild(tdReadAs);
+                    tr.appendChild(tdSkipped);
+                    tr.appendChild(tdDelete);
+
+                    tbdElementsConfig.appendChild(tr);
+
+                    index += 1;
+                }
+            }
+
+            const txtTagName = document.getElementById('txtTagName');
+            const txtReadAs = document.getElementById('txtReadAs');
+            const chkSkipped = document.getElementById('chkSkipped');
+
+            const btnAddElement = document.getElementById('btnAddElement');
+            btnAddElement.addEventListener('click', () => {
+                const tag = txtTagName.value;
+                const as = txtReadAs.value;
+                const skip = chkSkipped.checked;
+
+                configuration.elements.push({tag, as, skip});
+
+                renderElementsConfig();
+            });
+
+            renderElementsConfig();
         };
 
         const readConfiguration = () => {
-            const config = {};
+            const config = configuration;
 
             config.beep = document.getElementById('chkBeep').checked;
             config.voiceName = document.getElementById('voiceName').value;
