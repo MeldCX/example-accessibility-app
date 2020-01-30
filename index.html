@@ -1,596 +1,1014 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
     <script src="https://storage.googleapis.com/assets.meld.cx/agent/1.0.33/Agent.js"></script>
-    <style>
-        html, body {
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        .overlay {
-            visibility: hidden;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            color: white;
-            background-color: black;
-            z-index: 9999;
-            font-size: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-    </style>
-</head>
-<body>
-    <h1>MeldCX AgentM Accessibility Example App</h1>
-    <hr>
-    <br>
-    <p>
-        Dialog example can be found <a href="dialog.html">here</a>.
-    </p>
-    <p>
-        Example anchor link usage can be found <a href="#anchor">here</a>.
-    </p>
-    <a name="anchor"></a>
-    <label id="aria-label1" style="visibility: hidden" aria-label="Please enter your middle initial"></label>
-    <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 10px;">
-        <div>
-            <label for="firstName">First Name</label>
-            <input type="text" name="firstName" tabIndex="0" aria-label="Please enter your First Name here" aria-required="true"/>
-        </div>
-        <div>
-            <label for="initial">Initial</label>
-            <input type="text" name="initial" tabIndex="1" aria-labelledby="aria-label1"/>
-        </div>
-        <div>
-            <label for="lastName">Last Name</label>
-            <input type="text" name="lastName" tabIndex="2" aria-disabled="true"/>
-        </div>
-        <div>
-            <label tabIndex="3" aria-label="Please Enter your Date of Birth here" aria-flowto="dobDate"></label>
-            <label for="dob">Date of Birth</label>
-            <input type="date" id="dob" name="dob"/>
-            <select id="dobDate" tabIndex="4" aria-label="Select the date of your birth" style="visibility: visible;">
-                <option value="01">1st</option>
-                <option value="02">2nd</option>
-                <option value="03">3rd</option>
-                <option value="04">4th</option>
-                <option value="05">5th</option>
-                <option value="06">6th</option>
-                <option value="07">7th</option>
-                <option value="08">8th</option>
-                <option value="09">9th</option>
-                <option value="10">10th</option>
-                <option value="11">11th</option>
-                <option value="12">12th</option>
-                <option value="13">13th</option>
-                <option value="14">14th</option>
-                <option value="15">15th</option>
-                <option value="16">16th</option>
-                <option value="17">17th</option>
-                <option value="18">18th</option>
-                <option value="19">19th</option>
-                <option value="20">20th</option>
-                <option value="21">21st</option>
-                <option value="22">22nd</option>
-                <option value="23">23rd</option>
-                <option value="24">24th</option>
-                <option value="25">25th</option>
-                <option value="26">26th</option>
-                <option value="27">27th</option>
-                <option value="28">28th</option>
-                <option value="29">29th</option>
-                <option value="30">30th</option>
-                <option value="31">31st</option>
-            </select>
-            <select id="dobMonth" tabIndex="5" aria-label="Select the Month of your birth" style="visibility: visible;">
-                <option value="01">January</option>
-                <option value="02">February</option>
-                <option value="03">March</option>
-                <option value="04">April</option>
-                <option value="05">May</option>
-                <option value="06">June</option>
-                <option value="07">July</option>
-                <option value="08">August</option>
-                <option value="09">September</option>
-                <option value="10">October</option>
-                <option value="11">November</option>
-                <option value="12">December</option>
-            </select>
-            <input id="dobYear" type="number" min="1900" max="2001" tabIndex="6" data-mcx-keyset="KB_LAYOUT_Numbers" aria-label="Enter the year of your birth" style="visibility: visible;"></input>
-        </div>
-        <div>
-            <label for="mobileNumber">Mobile Number</label>
-            <input type="text" name="mobileNumber" tabIndex="7" maxlength="10" minlength="10" data-mcx-keyset="KB_LAYOUT_Numbers" aria-label="Please Enter your Mobile Number here"/>
-        </div>
-        <div>
-            <label for="favoriteColor">Favorite Color</label>
-            <select name="favoriteColor" tabIndex="8">
-                <option aria-posinset="First" selected="selected">Red</option>
-                <option>Green</option>
-                <option aria-posinset="Third" aria-setsize="A Bajillion">Blue</option>
-                <option aria-posinset="The fourth one" aria-setsize="A bunch">Fuschia</option>
-                <option aria-posinset="5" aria-setsize="6">Orange</option>
-                <option value="teal" aria-label="Teal, it is the color of the Port Adelaide Football Club">Teal</option>
-            </select>
-        </div>
-        <div>
-            <input name="chkConsent" type="checkbox" checked aria-checked="true" tabIndex="9"/>
-            <label for="chkConsent">Are you cool?</label>
-        </div>
-        <div>
-            <label for="tshirtColor">Free T-Shirt Color:&nbsp;</label>
-            <label tabIndex="10" aria-flowto="tshirtColor1" aria-label="Choose a color for your free t-shirt"></label>
-
-            <input tabIndex="11" type="radio" id="tshirtColor1" checked name="tshirtColor">
-            <label for="tshirtColor1">Orange</label>
-
-            <input type="radio" id="tshirtColor2" name="tshirtColor">
-            <label for="tshirtColor2">Tye Die</label>
-
-            <input type="radio" id="tshirtColor3" name="tshirtColor">
-            <label for="tshirtColor3">Mauve</label>
-        </div>
-        <div>
-            <label for="">Email</label>
-            <input tabIndex="13" type="email" aria-label="Please Enter your email here" data-mcx-keyset="KB_LAYOUT_azSpaceHyphenBackspaceWeb"/>
-        </div>
-        <div>
-            <label for="rangeInput">What is the speed limit here?</label>
-            <input name="rangeInput" tabIndex="14" type="range" value="0" min="0" max="100" step="10"/>
-        </div>
-        <div>
-            <label for="favFood">What is your favorite food? (I will give you some suggestions.)</label>
-            <input tabIndex="15" type="text" name="favFood" list="favFoods"/>
-            <datalist id="favFoods">
-                <option value="Spaghetti Bolognaise">Spaghetti Bolognaise</option>
-                <option>Pizza</option>
-                <option value="Pumpkin Soup">Pumpkin Soup</option>
-                <option>Chocolate Cake</option>
-            </datalist>
-        </div>
-        <div>
-            <button tabIndex="16" aria-label="Press Enter here to submit" onClick="console.log('Clicked')">Submit</button>
-        </div>
+    <link
+      href="https://fonts.googleapis.com/css?family=Titillium+Web:200,400,700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="intro">
+      <h1>
+        meldCX AgentM Accessibility Module Demo
+      </h1>
+      <p>
+        The Accessibility module enables smart text-to-speech using standard
+        HTML elements and attributes, allowing vision-impaired users to navigate
+        your applications. This example app highlights the variety of elements
+        supported, and demonstrates how they might be made available to users.
+      </p>
     </div>
-    <br>
-    <fieldset>
-        <legend>Accessibility Configuration</legend>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 10px;">
-            <div>
-                <label for="voiceName">Voice Name</label>
-                <select name="voiceName" id="voiceName">
 
-                </select>
-                &nbsp;<button id="btnVoiceName">Set</button>
-            </div>
-            <div>
-                <input type="range" name="voiceVolume" id="voiceVolume" min="0" max="100"/>
-                <label for="voiceVolume">Voice Volume</label>&nbsp;
-                <input style="width: 30px;" type="number" name="voiceVolumeMin" id="voiceVolumeMin">
-                <label for="voiceVolumeMin">MIN</label>&nbsp;
-                <input style="width: 30px;" type="number" name="voiceVolumeMax" id="voiceVolumeMax">
-                <label for="voiceVolumeMax">MAX</label>
-            </div>
-            <div>
-                <label for="systemVoiceName">System Voice Name</label>
-                <select name="systemVoiceName" id="systemVoiceName">
+    <div class="content">
+      <div class="wrap">
+        <h2>Dialogs and Modals</h2>
+        <p>Dialog example can be found <a href="dialog.html">here</a>.</p>
 
-                </select>
-                &nbsp;<button id="btnSystemVoiceName">Set</button>
-            </div>
-            <div>
-                <input type="range" name="speechRate" id="speechRate" min="0" max="100">
-                <label for="speechRate">Speech Rate</label>&nbsp;
-                <input style="width: 30px;" type="number" name="speechRateMin" id="speechRateMin">
-                <label for="speechRateMin">MIN</label>&nbsp;
-                <input style="width: 30px;" type="number" name="speechRateMax" id="speechRateMax">
-                <label for="speechRateMax">MAX
-            </div>
-            <div>&nbsp;</div>
-            <div>
-                <input type="range" name="deviceVolume" id="deviceVolume"/>
-                <label for="deviceVolume">Device Volume</label>&nbsp;
-                <input style="width: 30px;" type="number" name="deviceVolumeMin" id="deviceVolumeMin">
-                <label for="deviceVolumeMin">MIN</label>&nbsp;
-                <input style="width: 30px;" type="number" name="deviceVolumeMax" id="deviceVolumeMax">
-                <label for="deviceVolumeMax">MAX</label>
-            </div>
-            <div style="line-height: 20px;">
-                <input type="checkbox" name="chkBeep" id="chkBeep">
-                <label for="chkBeep">Beep on Key Press</label><br>
-                <input type="checkbox" name="chkWelcomeMessage" id="chkWelcomeMessage"/>
-                <label for="chkWelcomeMessage">Play Welcome Message at Startup time</label><br/>
-                <input type="checkbox" name="chkSettingMenusAtStart" id="chkSettingMenusAtStart"/>
-                <label for="chkSettingMenusAtStart">Play Setting Menus at Startup time</label><br/>
-                <input type="checkbox" name="chkWaitToStart" id="chkWaitToStart"/>
-                <label for="chkWaitToStart">Wait for confirmation to start workflow</label><br/><br/>
-                <label for="lstOverlayElement">Overlay Element when headphones plugged in</label>
-                <select id="lstOverlayElement">
-                    <option value="false">Disabled</option>
-                    <option value="true">Enabled (Use Built in)</option>
-                    <option value="overlayExample1">Enabled (Overlay Example 1)</option>
-                    <option value="overlayExample2">Enabled (Overlay Example 2)</option>
-                </select>
-            </div>
-            <div>
-                <fieldset style="line-height: 20px;">
-                    <legend>Setting Menus</legend>
-                    <input type="checkbox" name="chkPrivacy" id="chkPrivacy"/>
-                    <label for="chkPrivacy">Privacy Menu</label><br/>
-                    <input type="checkbox" name="chkVoiceVolume" id="chkVoiceVolume"/>
-                    <label for="chkVoiceVolume">Voice Volume Menu</label><br/>
-                    <input type="checkbox" name="chkDeviceVolume" id="chkDeviceVolume"/>
-                    <label for="chkDeviceVolume">Device Volume Menu</label><br/>
-                    <input type="checkbox" name="chkVoice" id="chkVoice">
-                    <label for="chkVoice">Voice Menu</label><br/>
-                    <input type="checkbox" name="chkSystemVoice" id="chkSystemVoice">
-                    <label for="chkSystemVoice">System Voice Menu</label><br/>
-                    <input type="checkbox" name="chkSpeechRate" id="chkSpeechRate">
-                    <label for="chkSpeechRate">Speech Rate Menu</label><br/>
-                </fieldset>
-            </div>
-            <div style="grid-column: span 2">
-                <fieldset>
-                    <legend>Elements</legend>
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 10px;">
-                            <fieldset style="line-height: 20px;">
-                                <legend>Presentation</legend>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Tag Name</th>
-                                            <th>Read as</th>
-                                            <th>Skipped</th>
-                                            <th>&nbsp;</th>
-                                            <th>&nbsp;</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tbdElementsConfig">
+        <h2>Anchors</h2>
+        <p>
+          Example anchor link usage can be found <a href="#anchor">here</a>.
+        </p>
+        <a name="anchor"></a>
 
-                                    </tbody>
-                                    <tbody>
-                                        <tr>
-                                            <td><input type="text" id="txtTagName"/></td>
-                                            <td><input type="text" id="txtReadAs"/></td>
-                                            <td><input type="checkbox" id="chkSkipped"/></td>
-                                            <td colspan="2">
-                                                <button id="btnAddElement">Add</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </fieldset>
-                            <fieldset style="line-height: 20px;">
-                                <legend>Input</legend>
-                                <input type="checkbox" name="chkInputId" id="chkInputId">
-                                <label for="chkInputId">Read Input ID</label><br>
-                                <input type="checkbox" name="chkInputType" id="chkInputType">
-                                <label for="chkInputType">Read Input Type</label><br>
-                                <input type="checkbox" name="chkInputSize" id="chkInputSize">
-                                <label for="chkInputSize">Read Input Size</label><br>
-                                <input type="checkbox" name="chkInputName" id="chkInputName">
-                                <label for="chkInputName">Read Input Name</label><br>
-                                <input type="checkbox" name="chkInputValue" id="chkInputValue">
-                                <label for="chkInputValue">Read Input Value</label><br>
-                                <input type="checkbox" name="chkInputLabel" id="chkInputLabel">
-                                <label for="chkInputLabel">Read Input Label</label><br>
-                                <input type="checkbox" name="chkInputChecked" id="chkInputChecked">
-                                <label for="chkInputChecked">Read Input Checked</label><br>
-                                <input type="checkbox" name="chkInputRequired" id="chkInputRequired">
-                                <label for="chkInputRequired">Read Input is Required</label><br>
-                                <input type="checkbox" name="chkInputMaxLength" id="chkInputMaxLength">
-                                <label for="chkInputMaxLength">Read Input Max Length</label><br>
-                                <input type="checkbox" name="chkInputStep" id="chkInputStep">
-                                <label for="chkInputStep">Read Input Step Size</label><br>
-                                <input type="checkbox" name="chkInputMax" id="chkInputMax">
-                                <label for="chkInputMax">Read Max Value</label><br>
-                                <input type="checkbox" name="chkInputMin" id="chkInputMin">
-                                <label for="chkInputMin">Read Max Value</label><br>
-                                <input type="checkbox" name="chkInputReadOnly" id="chkInputReadOnly">
-                                <label for="chkInputReadOnly">Read Input is Read Only</label><br>
-                                <input type="checkbox" name="chkInputMinLength" id="chkInputMinLength">
-                                <label for="chkInputMinLength">Read Input Minimum Length</label><br>
-                            </fieldset>
-                            <div>
-                                <fieldset style="line-height: 20px;">
-                                    <legend>Button</legend>
-                                    <input type="checkbox" name="chkButtonDisabled" id="chkButtonDisabled">
-                                    <label for="chkButtonDisabled">Read Button is Disabled</label><br>
-                                    <input type="checkbox" name="chkButtonTextContent" id="chkButtonTextContent">
-                                    <label for="chkButtonTextContent">Read Button Text Content</label>
-                                </fieldset>
-                                <fieldset style="line-height: 20px;">
-                                    <legend>Label</legend>
-                                    <input type="checkbox" name="chkLabelTextContent" id="chkLabelTextContent">
-                                    <label for="chkLabelTextContent">Read Label Text Content</label><br>
-                                </fieldset>
-                            </div>
-                            <div>
-                                <input type="checkbox" name="chkId" id="chkId">
-                                <label for="chkId">Read Element ID</label><br>
-                                <input type="checkbox" name="chkName" id="chkName">
-                                <label for="chkName">Read Element Name</label><br>
-                                <input type="checkbox" name="chkTextContent" id="chkTextContent">
-                                <label for="chkTextContent">Read Text Content</label><br>
-                                <input type="checkbox" name="chkType" id="chkType">
-                                <label for="chkType">Read Element Type</label>
-                            </div>
-                    </div>
-                </fieldset>
+        <h2>Forms and User Input</h2>
+        <label
+          id="aria-label1"
+          aria-label="Please enter your middle initial"
+        ></label>
+
+        <div class="fields">
+          <div class="field">
+            <label for="firstName">First Name</label>
+            <input
+              type="text"
+              name="firstName"
+              tabindex="0"
+              aria-label="Please enter your First Name here"
+              aria-required="true"
+            />
+          </div>
+
+          <div class="field">
+            <label for="initial">Initial</label>
+            <input
+              type="text"
+              name="initial"
+              tabindex="1"
+              aria-labelledby="aria-label1"
+            />
+          </div>
+
+          <div class="field">
+            <label for="lastName">Last Name</label>
+            <input
+              type="text"
+              name="lastName"
+              tabindex="2"
+              aria-disabled="true"
+            />
+          </div>
+
+          <div class="field">
+            <label for="mobileNumber">Mobile Number</label>
+            <input
+              type="text"
+              name="mobileNumber"
+              tabindex="7"
+              maxlength="10"
+              minlength="10"
+              data-mcx-keyset="KB_LAYOUT_Numbers"
+              aria-label="Please Enter your Mobile Number here"
+            />
+          </div>
+
+          <div class="field long">
+            <label for="dob">Date of Birth</label>
+            <label
+              tabindex="3"
+              aria-label="Please Enter your Date of Birth here"
+              aria-flowto="dobDate"
+            ></label>
+            <input type="date" id="dob" name="dob" />
+            <select
+              id="dobDate"
+              tabindex="4"
+              aria-label="Select the date of your birth"
+            >
+              <option value="01">1st</option>
+              <option value="02">2nd</option>
+              <option value="03">3rd</option>
+              <option value="04">4th</option>
+              <option value="05">5th</option>
+              <option value="06">6th</option>
+              <option value="07">7th</option>
+              <option value="08">8th</option>
+              <option value="09">9th</option>
+              <option value="10">10th</option>
+              <option value="11">11th</option>
+              <option value="12">12th</option>
+              <option value="13">13th</option>
+              <option value="14">14th</option>
+              <option value="15">15th</option>
+              <option value="16">16th</option>
+              <option value="17">17th</option>
+              <option value="18">18th</option>
+              <option value="19">19th</option>
+              <option value="20">20th</option>
+              <option value="21">21st</option>
+              <option value="22">22nd</option>
+              <option value="23">23rd</option>
+              <option value="24">24th</option>
+              <option value="25">25th</option>
+              <option value="26">26th</option>
+              <option value="27">27th</option>
+              <option value="28">28th</option>
+              <option value="29">29th</option>
+              <option value="30">30th</option>
+              <option value="31">31st</option>
+            </select>
+            <select
+              id="dobMonth"
+              tabindex="5"
+              aria-label="Select the Month of your birth"
+            >
+              <option value="01">January</option>
+              <option value="02">February</option>
+              <option value="03">March</option>
+              <option value="04">April</option>
+              <option value="05">May</option>
+              <option value="06">June</option>
+              <option value="07">July</option>
+              <option value="08">August</option>
+              <option value="09">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+            <input
+              id="dobYear"
+              type="number"
+              min="1900"
+              max="2001"
+              tabindex="6"
+              data-mcx-keyset="KB_LAYOUT_Numbers"
+              aria-label="Enter the year of your birth"
+            />
+          </div>
+
+          <div class="field">
+            <label for="favoriteColor">Favorite Color</label>
+            <select name="favoriteColor" tabindex="8">
+              <option aria-posinset="First" selected="selected">Red</option>
+              <option>Green</option>
+              <option aria-posinset="Third" aria-setsize="A Bajillion"
+                >Blue</option
+              >
+              <option aria-posinset="The fourth one" aria-setsize="A bunch"
+                >Fuschia</option
+              >
+              <option aria-posinset="5" aria-setsize="6">Orange</option>
+              <option
+                value="teal"
+                aria-label="Teal, it is the color of the Port Adelaide Football Club"
+                >Teal</option
+              >
+            </select>
+          </div>
+
+          <div class="field">
+            <input
+              name="chkConsent"
+              type="checkbox"
+              checked
+              aria-checked="true"
+              tabindex="9"
+            />
+            <label for="chkConsent">Are you cool?</label>
+          </div>
+
+          <div class="field">
+            <label for="tshirtColor">Free T-Shirt Color:</label>
+            <label
+              tabindex="10"
+              aria-flowto="tshirtColor1"
+              aria-label="Choose a color for your free t-shirt"
+            ></label>
+            <div class="input-group">
+              <input
+                tabindex="11"
+                type="radio"
+                id="tshirtColor1"
+                checked
+                name="tshirtColor"
+              />
+              <label for="tshirtColor1">Orange</label>
+
+              <input type="radio" id="tshirtColor2" name="tshirtColor" />
+              <label for="tshirtColor2">Tye Die</label>
+
+              <input type="radio" id="tshirtColor3" name="tshirtColor" />
+              <label for="tshirtColor3">Mauve</label>
             </div>
-            <div>&nbsp;</div>
-            <div style="text-align: right;"><button id="btnSaveConfig">Save</button></div>
+          </div>
+
+          <div class="field">
+            <label for="">Email</label>
+            <input
+              tabindex="13"
+              type="email"
+              aria-label="Please Enter your email here"
+              data-mcx-keyset="KB_LAYOUT_azSpaceHyphenBackspaceWeb"
+            />
+          </div>
+
+          <div class="field">
+            <label for="rangeInput">What is the speed limit here?</label>
+            <input
+              name="rangeInput"
+              tabindex="14"
+              type="range"
+              value="0"
+              min="0"
+              max="100"
+              step="10"
+            />
+          </div>
+
+          <div class="field long">
+            <label for="favFood"
+              >What is your favorite food? (I will give you some
+              suggestions.)</label
+            >
+            <input tabindex="15" type="text" name="favFood" list="favFoods" />
+            <datalist id="favFoods">
+              <option value="Spaghetti Bolognaise">Spaghetti Bolognaise</option>
+              <option>Pizza</option>
+              <option value="Pumpkin Soup">Pumpkin Soup</option>
+              <option>Chocolate Cake</option>
+            </datalist>
+          </div>
         </div>
-    </fieldset>
+        <div>
+          <button
+            tabindex="16"
+            aria-label="Press Enter here to submit"
+            onClick="console.log('Clicked')"
+          >
+            Submit
+          </button>
+        </div>
+
+        <h2>Configuration</h2>
+        <div class="fields">
+          <div class="field oneline">
+            <label for="voiceName">Voice Name</label>
+            <div class="input-group">
+              <select name="voiceName" id="voiceName"> </select>
+              <button id="btnVoiceName">Set</button>
+            </div>
+          </div>
+
+          <div class="field oneline">
+            <label for="systemVoiceName">System Voice Name</label>
+            <div class="input-group">
+              <select name="systemVoiceName" id="systemVoiceName"> </select>
+              <button id="btnSystemVoiceName">Set</button>
+            </div>
+          </div>
+
+          <div class="field long oneline">
+            <label for="voiceVolume">Voice Volume</label>
+            <div class="input-group">
+              <input
+                type="range"
+                name="voiceVolume"
+                id="voiceVolume"
+                min="0"
+                max="100"
+              />
+              <input type="number" name="voiceVolumeMin" id="voiceVolumeMin" />
+              <label for="voiceVolumeMin">MIN</label>
+              <input type="number" name="voiceVolumeMax" id="voiceVolumeMax" />
+              <label for="voiceVolumeMax">MAX</label>
+            </div>
+          </div>
+
+          <div class="field long oneline">
+            <label for="speechRate">Speech Rate</label>
+            <div class="input-group">
+              <input
+                type="range"
+                name="speechRate"
+                id="speechRate"
+                min="0"
+                max="100"
+              />
+              <input type="number" name="speechRateMin" id="speechRateMin" />
+              <label for="speechRateMin">MIN</label>
+              <input type="number" name="speechRateMax" id="speechRateMax" />
+              <label for="speechRateMax">MAX</label>
+            </div>
+          </div>
+
+          <div class="field long oneline">
+            <label for="deviceVolume">Device Volume</label>
+            <div class="input-group">
+              <input type="range" name="deviceVolume" id="deviceVolume" />
+              <input
+                type="number"
+                name="deviceVolumeMin"
+                id="deviceVolumeMin"
+              />
+              <label for="deviceVolumeMin">MIN</label>
+              <input
+                type="number"
+                name="deviceVolumeMax"
+                id="deviceVolumeMax"
+              />
+              <label for="deviceVolumeMax">MAX</label>
+            </div>
+          </div>
+
+          <div class="field long oneline">
+            <label for="lstOverlayElement"
+              >Overlay Element when headphones plugged in</label
+            >
+            <select id="lstOverlayElement">
+              <option value="false">Disabled</option>
+              <option value="true">Enabled (Use Built in)</option>
+              <option value="overlayExample1"
+                >Enabled (Overlay Example 1)</option
+              >
+              <option value="overlayExample2"
+                >Enabled (Overlay Example 2)</option
+              >
+            </select>
+          </div>
+        </div>
+
+        <div class="fields">
+          <div class="field">
+            <h3>Audio Settings</h3>
+            <div class="input-group">
+              <input type="checkbox" name="chkBeep" id="chkBeep" />
+              <label for="chkBeep">Beep on Key Press</label>
+            </div>
+
+            <div class="input-group">
+              <input
+                type="checkbox"
+                name="chkWelcomeMessage"
+                id="chkWelcomeMessage"
+              />
+              <label for="chkWelcomeMessage"
+                >Play Welcome Message at Startup time</label
+              >
+            </div>
+
+            <div class="input-group">
+              <input
+                type="checkbox"
+                name="chkSettingMenusAtStart"
+                id="chkSettingMenusAtStart"
+              />
+              <label for="chkSettingMenusAtStart"
+                >Play Setting Menus at Startup time</label
+              >
+            </div>
+
+            <div class="input-group">
+              <input
+                type="checkbox"
+                name="chkWaitToStart"
+                id="chkWaitToStart"
+              />
+              <label for="chkWaitToStart"
+                >Wait for confirmation to start workflow</label
+              >
+            </div>
+          </div>
+
+          <div class="field">
+            <h3>Setting Menus</h3>
+            <div class="input-group">
+              <input type="checkbox" name="chkPrivacy" id="chkPrivacy" />
+              <label for="chkPrivacy">Privacy Menu</label>
+            </div>
+            <div class="input-group">
+              <input
+                type="checkbox"
+                name="chkVoiceVolume"
+                id="chkVoiceVolume"
+              />
+              <label for="chkVoiceVolume">Voice Volume Menu</label>
+            </div>
+            <div class="input-group">
+              <input
+                type="checkbox"
+                name="chkDeviceVolume"
+                id="chkDeviceVolume"
+              />
+              <label for="chkDeviceVolume">Device Volume Menu</label>
+            </div>
+            <div class="input-group">
+              <input type="checkbox" name="chkVoice" id="chkVoice" />
+              <label for="chkVoice">Voice Menu</label>
+            </div>
+            <div class="input-group">
+              <input
+                type="checkbox"
+                name="chkSystemVoice"
+                id="chkSystemVoice"
+              />
+              <label for="chkSystemVoice">System Voice Menu</label>
+            </div>
+            <div class="input-group">
+              <input type="checkbox" name="chkSpeechRate" id="chkSpeechRate" />
+              <label for="chkSpeechRate">Speech Rate Menu</label>
+            </div>
+          </div>
+        </div>
+        <div class="fields">
+          <div>
+            <h3>Input</h3>
+            <div>
+              <input type="checkbox" name="chkInputId" id="chkInputId" />
+              <label for="chkInputId">Read Input ID</label>
+            </div>
+            <div>
+              <input type="checkbox" name="chkInputType" id="chkInputType" />
+              <label for="chkInputType">Read Input Type</label>
+            </div>
+            <div>
+              <input type="checkbox" name="chkInputSize" id="chkInputSize" />
+              <label for="chkInputSize">Read Input Size</label>
+            </div>
+            <div>
+              <input type="checkbox" name="chkInputName" id="chkInputName" />
+              <label for="chkInputName">Read Input Name</label>
+            </div>
+            <div>
+              <input type="checkbox" name="chkInputValue" id="chkInputValue" />
+              <label for="chkInputValue">Read Input Value</label>
+            </div>
+            <div>
+              <input type="checkbox" name="chkInputLabel" id="chkInputLabel" />
+              <label for="chkInputLabel">Read Input Label</label>
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                name="chkInputChecked"
+                id="chkInputChecked"
+              />
+              <label for="chkInputChecked">Read Input Checked</label>
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                name="chkInputRequired"
+                id="chkInputRequired"
+              />
+              <label for="chkInputRequired">Read Input is Required</label>
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                name="chkInputMaxLength"
+                id="chkInputMaxLength"
+              />
+              <label for="chkInputMaxLength">Read Input Max Length</label>
+            </div>
+            <div>
+              <input type="checkbox" name="chkInputStep" id="chkInputStep" />
+              <label for="chkInputStep">Read Input Step Size</label>
+            </div>
+            <div>
+              <input type="checkbox" name="chkInputMax" id="chkInputMax" />
+              <label for="chkInputMax">Read Max Value</label>
+            </div>
+            <div>
+              <input type="checkbox" name="chkInputMin" id="chkInputMin" />
+              <label for="chkInputMin">Read Max Value</label>
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                name="chkInputReadOnly"
+                id="chkInputReadOnly"
+              />
+              <label for="chkInputReadOnly">Read Input is Read Only</label>
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                name="chkInputMinLength"
+                id="chkInputMinLength"
+              />
+              <label for="chkInputMinLength">Read Input Minimum Length</label>
+            </div>
+          </div>
+          <div>
+            <h3>Button</h3>
+            <div>
+              <input
+                type="checkbox"
+                name="chkButtonDisabled"
+                id="chkButtonDisabled"
+              />
+              <label for="chkButtonDisabled">Read Button is Disabled</label>
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                name="chkButtonTextContent"
+                id="chkButtonTextContent"
+              />
+              <label for="chkButtonTextContent">Read Button Text Content</label>
+            </div>
+          </div>
+          <div>
+            <h3>Label</h3>
+            <input
+              type="checkbox"
+              name="chkLabelTextContent"
+              id="chkLabelTextContent"
+            />
+            <label for="chkLabelTextContent">Read Label Text Content</label>
+            <div>
+              <input type="checkbox" name="chkId" id="chkId" />
+              <label for="chkId">Read Element ID</label>
+            </div>
+            <div>
+              <input type="checkbox" name="chkName" id="chkName" />
+              <label for="chkName">Read Element Name</label>
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                name="chkTextContent"
+                id="chkTextContent"
+              />
+              <label for="chkTextContent">Read Text Content</label>
+            </div>
+            <div>
+              <input type="checkbox" name="chkType" id="chkType" />
+              <label for="chkType">Read Element Type</label>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button id="btnSaveConfig">Save</button>
+        </div>
+
+        <h3>Presentation</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Tag Name</th>
+              <th>Read as</th>
+              <th>Skipped</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tbdElementsConfig"></tbody>
+          <tbody>
+            <tr>
+              <td><input type="text" id="txtTagName" /></td>
+              <td><input type="text" id="txtReadAs" /></td>
+              <td><input type="checkbox" id="chkSkipped" /></td>
+              <td>
+                <button id="btnAddElement">Add</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <div id="overlayExample1" class="overlay">
-        <div>This is my custom overlay element!!!!!</div>
+      <div>This is my custom overlay element!!!!!</div>
     </div>
     <div id="overlayExample2" class="overlay">
-        <div>Example Overlay 2</div>
+      <div>Example Overlay 2</div>
     </div>
     <script>
-        const elDOBYear = document.getElementById('dobYear');
-        elDOBYear.addEventListener('change', () => {
-            console.log('Change');
-            const date = document.getElementById('dobDate').value;
-            const month = document.getElementById('dobMonth').value;
-            const year = elDOBYear.value;
+      const elDOBYear = document.getElementById('dobYear');
+      elDOBYear.addEventListener('change', () => {
+        console.log('Change');
+        const date = document.getElementById('dobDate').value;
+        const month = document.getElementById('dobMonth').value;
+        const year = elDOBYear.value;
 
-            document.getElementById('dob').value = `${year}-${month}-${date}`;
+        document.getElementById('dob').value = `${year}-${month}-${date}`;
+      });
+
+      const lstOverlayElement = document.getElementById('lstOverlayElement');
+      lstOverlayElement.addEventListener('change', () => {
+        switch (lstOverlayElement.value) {
+          case 'false':
+            console.info('Disabling overlay');
+            window.mcxAccessibility.setOverlayElement(false);
+            break;
+
+          case 'true':
+            console.info('Enabling overlay using built in overlay element');
+            window.mcxAccessibility.setOverlayElement(false);
+            break;
+
+          default:
+            console.info(
+              `Enabling overlay using element from this page ${lstOverlayElement.value}`,
+            );
+            window.mcxAccessibility.setOverlayElement(
+              document.getElementById(lstOverlayElement.value),
+            );
+        }
+      });
+
+      const waitForVoices = () =>
+        new Promise(resolve => {
+          const synth = window.speechSynthesis;
+          if (synth.getVoices().length) return resolve(synth.getVoices());
+          synth.onvoiceschanged = () => resolve(synth.getVoices());
         });
 
-        const lstOverlayElement = document.getElementById('lstOverlayElement');
-        lstOverlayElement.addEventListener('change', () => {
-            switch (lstOverlayElement.value) {
-                case 'false':
-                    console.info('Disabling overlay');
-                    window.mcxAccessibility.setOverlayElement(false);
-                    break;
+      let configuration = [];
 
-                case 'true':
-                    console.info('Enabling overlay using built in overlay element');
-                    window.mcxAccessibility.setOverlayElement(false);
-                    break;
+      const init = async () => {
+        console.log('init');
+        const elVoiceName = document.getElementById('voiceName');
+        const elSystemVoiceName = document.getElementById('systemVoiceName');
 
-                default:
-                    console.info(`Enabling overlay using element from this page ${lstOverlayElement.value}`);
-                    window.mcxAccessibility.setOverlayElement(document.getElementById(lstOverlayElement.value));
-            }
-        });
+        elVoiceName.innerHTML = '';
+        elSystemVoiceName.innerHTML = '';
 
-        const waitForVoices = () => new Promise(resolve => {
-            const synth = window.speechSynthesis;
-            if (synth.getVoices().length) return resolve(synth.getVoices());
-            synth.onvoiceschanged = () => resolve(synth.getVoices());
-        });
+        configuration = await window.Agent.Accessibility.getConfiguration();
 
-        let configuration = [];
+        console.log(configuration);
 
-        const init = async() => {
-            console.log('init');
-            const elVoiceName = document.getElementById('voiceName');
-            const elSystemVoiceName = document.getElementById('systemVoiceName');
+        waitForVoices().then(voices =>
+          voices
+            .filter(
+              ({lang}) =>
+                (lang.includes('-') ? lang.split('-')[0] : lang) === 'en',
+            )
+            .forEach(voice => {
+              const option = document.createElement('option');
+              option.textContent = voice.name;
+              if (voice.name === configuration.voiceName)
+                option.setAttribute('selected', '');
 
-            elVoiceName.innerHTML = '';
-            elSystemVoiceName.innerHTML = '';
+              elVoiceName.appendChild(option);
 
-            configuration = await window.Agent.Accessibility.getConfiguration();
+              const option2 = document.createElement('option');
+              option2.textContent = voice.name;
+              if (voice.name === configuration.systemVoiceName)
+                option2.setAttribute('selected', '');
 
-            console.log(configuration);
+              elSystemVoiceName.appendChild(option2);
+            }),
+        );
 
-            waitForVoices().then(voices => voices
-                .filter(({lang}) => (lang.includes('-') ? lang.split('-')[0] : lang) === 'en')
-                .forEach(voice => {
-                    const option = document.createElement('option');
-                    option.textContent = voice.name;
-                    if (voice.name === configuration.voiceName) option.setAttribute('selected', '');
+        lstOverlayElement.value = configuration.overlay.toString();
 
-                    elVoiceName.appendChild(option);
+        document
+          .getElementById('deviceVolume')
+          .setAttribute('min', configuration.deviceVolume.min);
+        document
+          .getElementById('deviceVolume')
+          .setAttribute('max', configuration.deviceVolume.max);
 
-                    const option2 = document.createElement('option');
-                    option2.textContent = voice.name;
-                    if (voice.name === configuration.systemVoiceName) option2.setAttribute('selected', '');
+        document.getElementById('deviceVolumeMin').value =
+          configuration.deviceVolume.min;
+        document.getElementById('deviceVolumeMax').value =
+          configuration.deviceVolume.max;
 
-                    elSystemVoiceName.appendChild(option2);
-                }));
+        document
+          .getElementById('voiceVolume')
+          .setAttribute('min', configuration.voiceVolume.min);
+        document
+          .getElementById('voiceVolume')
+          .setAttribute('max', configuration.voiceVolume.max);
+        document.getElementById('voiceVolume').value =
+          configuration.voiceVolume.value;
 
-            lstOverlayElement.value = configuration.overlay.toString();
+        document.getElementById('voiceVolumeMin').value =
+          configuration.voiceVolume.min;
+        document.getElementById('voiceVolumeMax').value =
+          configuration.voiceVolume.max;
 
-            document.getElementById('deviceVolume').setAttribute('min', configuration.deviceVolume.min);
-            document.getElementById('deviceVolume').setAttribute('max', configuration.deviceVolume.max);
+        document
+          .getElementById('speechRate')
+          .setAttribute('min', configuration.speechRate.min);
+        document
+          .getElementById('speechRate')
+          .setAttribute('max', configuration.speechRate.max);
+        document.getElementById('speechRate').value =
+          configuration.speechRate.value;
 
-            document.getElementById('deviceVolumeMin').value = configuration.deviceVolume.min;
-            document.getElementById('deviceVolumeMax').value = configuration.deviceVolume.max;
+        document.getElementById('speechRateMin').value =
+          configuration.speechRate.min;
+        document.getElementById('speechRateMax').value =
+          configuration.speechRate.max;
 
-            document.getElementById('voiceVolume').setAttribute('min', configuration.voiceVolume.min);
-            document.getElementById('voiceVolume').setAttribute('max', configuration.voiceVolume.max);
-            document.getElementById('voiceVolume').value = configuration.voiceVolume.value;
+        for (const [k, v] of Object.entries(configuration).filter(([k]) =>
+          [
+            'beep',
+            'waitToStart',
+            'settingMenusAtStart',
+            'welcomeMessage',
+          ].includes(k),
+        )) {
+          const name = k.slice(0, 1).toUpperCase() + k.slice(1);
+          if (v)
+            document.getElementById(`chk${name}`).setAttribute('checked', '');
+          else if (
+            document.getElementById(`chk${name}`).hasAttribute('checked')
+          )
+            document.getElementById(`chk${name}`).removeAttribute('checked');
+        }
 
-            document.getElementById('voiceVolumeMin').value = configuration.voiceVolume.min;
-            document.getElementById('voiceVolumeMax').value = configuration.voiceVolume.max;
+        for (const [k, v] of Object.entries(configuration.settingMenus)) {
+          const name = k.slice(0, 1).toUpperCase() + k.slice(1);
+          if (v)
+            document.getElementById(`chk${name}`).setAttribute('checked', '');
+          else if (
+            document.getElementById(`chk${name}`).hasAttribute('checked')
+          )
+            document.getElementById(`chk${name}`).removeAttribute('checked');
+        }
 
-            document.getElementById('speechRate').setAttribute('min', configuration.speechRate.min);
-            document.getElementById('speechRate').setAttribute('max', configuration.speechRate.max);
-            document.getElementById('speechRate').value = configuration.speechRate.value;
+        for (const [k, v] of Object.entries(
+          configuration.elementProperties.input,
+        )) {
+          const name = k.slice(0, 1).toUpperCase() + k.slice(1);
+          if (v)
+            document
+              .getElementById(`chkInput${name}`)
+              .setAttribute('checked', '');
+          else if (
+            document.getElementById(`chkInput${name}`).hasAttribute('checked')
+          )
+            document
+              .getElementById(`chkInput${name}`)
+              .removeAttribute('checked');
+        }
 
-            document.getElementById('speechRateMin').value = configuration.speechRate.min;
-            document.getElementById('speechRateMax').value = configuration.speechRate.max;
+        for (const [k, v] of Object.entries(
+          configuration.elementProperties.button,
+        )) {
+          const name = k.slice(0, 1).toUpperCase() + k.slice(1);
+          if (v)
+            document
+              .getElementById(`chkButton${name}`)
+              .setAttribute('checked', '');
+          else if (
+            document.getElementById(`chkButton${name}`).hasAttribute('checked')
+          )
+            document
+              .getElementById(`chkButton${name}`)
+              .removeAttribute('checked');
+        }
 
-            for (const [k, v] of Object.entries(configuration).filter(([k]) => ['beep', 'waitToStart', 'settingMenusAtStart', 'welcomeMessage'].includes(k))) {
-                const name = k.slice(0, 1).toUpperCase() + k.slice(1);
-                if (v) document.getElementById(`chk${name}`).setAttribute('checked', '');
-                else if (document.getElementById(`chk${name}`).hasAttribute('checked')) document.getElementById(`chk${name}`).removeAttribute('checked');
-            }
+        for (const [k, v] of Object.entries(
+          configuration.elementProperties.label,
+        )) {
+          const name = k.slice(0, 1).toUpperCase() + k.slice(1);
+          if (v)
+            document
+              .getElementById(`chkLabel${name}`)
+              .setAttribute('checked', '');
+          else if (
+            document.getElementById(`chkLabel${name}`).hasAttribute('checked')
+          )
+            document
+              .getElementById(`chkLabel${name}`)
+              .removeAttribute('checked');
+        }
 
-            for (const [k, v] of Object.entries(configuration.settingMenus)) {
-                const name = k.slice(0, 1).toUpperCase() + k.slice(1);
-                if (v) document.getElementById(`chk${name}`).setAttribute('checked', '');
-                else if (document.getElementById(`chk${name}`).hasAttribute('checked')) document.getElementById(`chk${name}`).removeAttribute('checked');
-            }
+        if (configuration.elementProperties.id)
+          document.getElementById('chkId').setAttribute('checked', '');
+        else if (document.getElementById('chkId').hasAttribute('checked'))
+          document.getElementById('chkId').removeAttribute('checked');
 
-            for (const [k, v] of Object.entries(configuration.elementProperties.input)) {
-                const name = k.slice(0, 1).toUpperCase() + k.slice(1);
-                if (v) document.getElementById(`chkInput${name}`).setAttribute('checked', '');
-                else if (document.getElementById(`chkInput${name}`).hasAttribute('checked')) document.getElementById(`chkInput${name}`).removeAttribute('checked');
-            }
+        if (configuration.elementProperties.name)
+          document.getElementById('chkName').setAttribute('checked', '');
+        else if (document.getElementById('chkName').hasAttribute('checked'))
+          document.getElementById('chkName').removeAttribute('checked');
 
-            for (const [k, v] of Object.entries(configuration.elementProperties.button)) {
-                const name = k.slice(0, 1).toUpperCase() + k.slice(1);
-                if (v) document.getElementById(`chkButton${name}`).setAttribute('checked', '');
-                else if (document.getElementById(`chkButton${name}`).hasAttribute('checked')) document.getElementById(`chkButton${name}`).removeAttribute('checked');
-            }
+        if (configuration.elementProperties.textContent)
+          document.getElementById('chkTextContent').setAttribute('checked', '');
+        else if (
+          document.getElementById('chkTextContent').hasAttribute('checked')
+        )
+          document.getElementById('chkTextContent').removeAttribute('checked');
 
-            for (const [k, v] of Object.entries(configuration.elementProperties.label)) {
-                const name = k.slice(0, 1).toUpperCase() + k.slice(1);
-                if (v) document.getElementById(`chkLabel${name}`).setAttribute('checked', '');
-                else if (document.getElementById(`chkLabel${name}`).hasAttribute('checked')) document.getElementById(`chkLabel${name}`).removeAttribute('checked');
-            }
+        if (configuration.elementProperties.type)
+          document.getElementById('chkType').setAttribute('checked', '');
+        else if (document.getElementById('chkType').hasAttribute('checked'))
+          document.getElementById('chkType').removeAttribute('checked');
 
-            if (configuration.elementProperties.id) document.getElementById('chkId').setAttribute('checked', '');
-            else if (document.getElementById('chkId').hasAttribute('checked')) document.getElementById('chkId').removeAttribute('checked');
+        const renderElementsConfig = () => {
+          let index = 0;
+          const tbdElementsConfig = document.getElementById(
+            'tbdElementsConfig',
+          );
+          tbdElementsConfig.innerHTML = '';
+          for (const elemConfig of configuration.elements) {
+            const tr = document.createElement('tr');
+            const [tdTagName, tdReadAs, tdSkipped, tdDelete] = Array.from({
+              length: 4,
+            }).map(() => document.createElement('td'));
 
-            if (configuration.elementProperties.name) document.getElementById('chkName').setAttribute('checked', '');
-            else if (document.getElementById('chkName').hasAttribute('checked')) document.getElementById('chkName').removeAttribute('checked');
+            tdTagName.textContent = elemConfig.tag;
+            tdReadAs.textContent = elemConfig.as;
 
-            if (configuration.elementProperties.textContent) document.getElementById('chkTextContent').setAttribute('checked', '');
-            else if (document.getElementById('chkTextContent').hasAttribute('checked')) document.getElementById('chkTextContent').removeAttribute('checked');
+            const chkSkipped = document.createElement('input');
+            chkSkipped.setAttribute('type', 'checkbox');
+            chkSkipped.checked = elemConfig.skip;
+            chkSkipped.addEventListener('change', ({target}) => {
+              configuration.elements = configuration.elements.map((el, idx) => {
+                if (idx === index) el.skip = target.checked;
 
-            if (configuration.elementProperties.type) document.getElementById('chkType').setAttribute('checked', '');
-            else if (document.getElementById('chkType').hasAttribute('checked')) document.getElementById('chkType').removeAttribute('checked');
-
-            const renderElementsConfig = () => {
-                let index = 0;
-                const tbdElementsConfig = document.getElementById('tbdElementsConfig');
-                tbdElementsConfig.innerHTML = '';
-                for (const elemConfig of configuration.elements) {
-                    const tr = document.createElement('tr');
-                    const [tdTagName, tdReadAs, tdSkipped, tdDelete] = Array.from({length: 4}).map(() => document.createElement('td'));
-
-                    tdTagName.textContent = elemConfig.tag;
-                    tdReadAs.textContent = elemConfig.as;
-
-                    const chkSkipped = document.createElement('input')
-                    chkSkipped.setAttribute('type', 'checkbox');
-                    chkSkipped.checked = elemConfig.skip;
-                    chkSkipped.addEventListener('change', ({target}) => {
-                        configuration.elements = configuration.elements.map((el, idx) => {
-                            if (idx === index) el.skip = target.checked;
-
-                            return el;
-                        });
-                    });
-                    tdSkipped.appendChild(chkSkipped);
-
-                    const btnDelete = document.createElement('button');
-                    btnDelete.textContent = 'Delete';
-                    btnDelete.addEventListener('click', () => {
-                        console.log('btnDelete', index);
-                        configuration.elements = configuration.elements.reduce((a, v) => {
-                            if (v.tag === elemConfig.tag) a.push(v);
-
-                            return a;
-                        }, []);
-
-                        renderElementsConfig();
-                    });
-                    tdDelete.appendChild(btnDelete);
-
-                    tr.appendChild(tdTagName);
-                    tr.appendChild(tdReadAs);
-                    tr.appendChild(tdSkipped);
-                    tr.appendChild(tdDelete);
-
-                    tbdElementsConfig.appendChild(tr);
-
-                    index += 1;
-                }
-            }
-
-            const txtTagName = document.getElementById('txtTagName');
-            const txtReadAs = document.getElementById('txtReadAs');
-            const chkSkipped = document.getElementById('chkSkipped');
-
-            const btnAddElement = document.getElementById('btnAddElement');
-            btnAddElement.addEventListener('click', () => {
-                const tag = txtTagName.value;
-                const as = txtReadAs.value;
-                const skip = chkSkipped.checked;
-
-                configuration.elements.push({tag, as, skip});
-
-                renderElementsConfig();
+                return el;
+              });
             });
+            tdSkipped.appendChild(chkSkipped);
 
-            renderElementsConfig();
+            const btnDelete = document.createElement('button');
+            btnDelete.textContent = 'Delete';
+            btnDelete.addEventListener('click', () => {
+              console.log('btnDelete', index);
+              configuration.elements = configuration.elements.reduce((a, v) => {
+                if (v.tag === elemConfig.tag) a.push(v);
+
+                return a;
+              }, []);
+
+              renderElementsConfig();
+            });
+            tdDelete.appendChild(btnDelete);
+
+            tr.appendChild(tdTagName);
+            tr.appendChild(tdReadAs);
+            tr.appendChild(tdSkipped);
+            tr.appendChild(tdDelete);
+
+            tbdElementsConfig.appendChild(tr);
+
+            index += 1;
+          }
         };
 
-        const readConfiguration = () => {
-            const config = configuration;
+        const txtTagName = document.getElementById('txtTagName');
+        const txtReadAs = document.getElementById('txtReadAs');
+        const chkSkipped = document.getElementById('chkSkipped');
 
-            config.beep = document.getElementById('chkBeep').checked;
-            config.voiceName = document.getElementById('voiceName').value;
-            config.waitToStart = document.getElementById('chkWaitToStart').checked;
-            config.settingMenusAtStart = document.getElementById('chkSettingMenusAtStart').checked;
-            config.welcomeMessage = document.getElementById('chkWelcomeMessage').checked;
-            config.systemVoiceName = document.getElementById('systemVoiceName').value;
-            config.settingMenus = {};
-            config.settingMenus.voice = document.getElementById('chkVoice').checked;
-            config.settingMenus.speechRate = document.getElementById('chkSpeechRate').checked;
-            config.settingMenus.systemVoice = document.getElementById('chkSystemVoice').checked;
-            config.settingMenus.voiceVolume = document.getElementById('chkVoiceVolume').checked;
-            config.settingMenus.deviceVolume = document.getElementById('chkDeviceVolume').checked;
-            config.elementProperties = {};
-            config.elementProperties.id = document.getElementById('chkId').checked;
-            config.elementProperties.name = document.getElementById('chkName').checked;
-            config.elementProperties.type = document.getElementById('chkType').checked;
-            config.elementProperties.textContent = document.getElementById('chkTextContent').checked;
-            config.elementProperties.input = {};
-            config.elementProperties.input.id = document.getElementById('chkInputId').checked;
-            config.elementProperties.input.type = document.getElementById('chkInputType').checked;
-            config.elementProperties.input.name = document.getElementById('chkInputName').checked;
-            config.elementProperties.input.size = document.getElementById('chkInputSize').checked;
-            config.elementProperties.input.value = document.getElementById('chkInputValue').checked;
-            config.elementProperties.input.label = document.getElementById('chkInputLabel').checked;
-            config.elementProperties.input.checked = document.getElementById('chkInputChecked').checked;
-            config.elementProperties.input.readOnly = document.getElementById('chkInputReadOnly').checked;
-            config.elementProperties.input.required = document.getElementById('chkInputRequired').checked;
-            config.elementProperties.input.maxLength = document.getElementById('chkInputMaxLength').checked;
-            config.elementProperties.input.minLength = document.getElementById('chkInputMinLength').checked;
-            config.elementProperties.button = {};
-            config.elementProperties.button.disabled = document.getElementById('chkButtonDisabled').checked;
-            config.elementProperties.button.textContent = document.getElementById('chkButtonTextContent').checked;
-            config.elementProperties.label = {};
-            config.elementProperties.label.textContent = document.getElementById('chkLabelTextContent').checked;
-            config.voiceVolume = {};
-            config.voiceVolume.min = Number(document.getElementById('voiceVolumeMin').value);
-            config.voiceVolume.max = Number(document.getElementById('voiceVolumeMax').value);
-            config.voiceVolume.value = Number(document.getElementById('voiceVolume').value);
-            config.deviceVolume = {};
-            config.deviceVolume.min = Number(document.getElementById('deviceVolumeMin').value);
-            config.deviceVolume.max = Number(document.getElementById('deviceVolumeMax').value);
-            config.speechRate = {};
-            config.speechRate.min = Number(document.getElementById('speechRateMin').value);
-            config.speechRate.max = Number(document.getElementById('speechRateMax').value);
-            config.speechRate.value = Number(document.getElementById('speechRate').value);
+        const btnAddElement = document.getElementById('btnAddElement');
+        btnAddElement.addEventListener('click', () => {
+          const tag = txtTagName.value;
+          const as = txtReadAs.value;
+          const skip = chkSkipped.checked;
 
-            window.Agent.Accessibility.setConfiguration(config);
-        };
+          configuration.elements.push({tag, as, skip});
 
-        window.Agent.onReady(() => {
-            init();
-            window.Agent.Accessibility.onConfigurationChanged(() => init());
+          renderElementsConfig();
         });
 
-        document.getElementById('btnSaveConfig').addEventListener('click', () => readConfiguration());
+        renderElementsConfig();
+      };
+
+      const readConfiguration = () => {
+        const config = configuration;
+
+        config.beep = document.getElementById('chkBeep').checked;
+        config.voiceName = document.getElementById('voiceName').value;
+        config.waitToStart = document.getElementById('chkWaitToStart').checked;
+        config.settingMenusAtStart = document.getElementById(
+          'chkSettingMenusAtStart',
+        ).checked;
+        config.welcomeMessage = document.getElementById(
+          'chkWelcomeMessage',
+        ).checked;
+        config.systemVoiceName = document.getElementById(
+          'systemVoiceName',
+        ).value;
+        config.settingMenus = {};
+        config.settingMenus.voice = document.getElementById('chkVoice').checked;
+        config.settingMenus.speechRate = document.getElementById(
+          'chkSpeechRate',
+        ).checked;
+        config.settingMenus.systemVoice = document.getElementById(
+          'chkSystemVoice',
+        ).checked;
+        config.settingMenus.voiceVolume = document.getElementById(
+          'chkVoiceVolume',
+        ).checked;
+        config.settingMenus.deviceVolume = document.getElementById(
+          'chkDeviceVolume',
+        ).checked;
+        config.elementProperties = {};
+        config.elementProperties.id = document.getElementById('chkId').checked;
+        config.elementProperties.name = document.getElementById(
+          'chkName',
+        ).checked;
+        config.elementProperties.type = document.getElementById(
+          'chkType',
+        ).checked;
+        config.elementProperties.textContent = document.getElementById(
+          'chkTextContent',
+        ).checked;
+        config.elementProperties.input = {};
+        config.elementProperties.input.id = document.getElementById(
+          'chkInputId',
+        ).checked;
+        config.elementProperties.input.type = document.getElementById(
+          'chkInputType',
+        ).checked;
+        config.elementProperties.input.name = document.getElementById(
+          'chkInputName',
+        ).checked;
+        config.elementProperties.input.size = document.getElementById(
+          'chkInputSize',
+        ).checked;
+        config.elementProperties.input.value = document.getElementById(
+          'chkInputValue',
+        ).checked;
+        config.elementProperties.input.label = document.getElementById(
+          'chkInputLabel',
+        ).checked;
+        config.elementProperties.input.checked = document.getElementById(
+          'chkInputChecked',
+        ).checked;
+        config.elementProperties.input.readOnly = document.getElementById(
+          'chkInputReadOnly',
+        ).checked;
+        config.elementProperties.input.required = document.getElementById(
+          'chkInputRequired',
+        ).checked;
+        config.elementProperties.input.maxLength = document.getElementById(
+          'chkInputMaxLength',
+        ).checked;
+        config.elementProperties.input.minLength = document.getElementById(
+          'chkInputMinLength',
+        ).checked;
+        config.elementProperties.button = {};
+        config.elementProperties.button.disabled = document.getElementById(
+          'chkButtonDisabled',
+        ).checked;
+        config.elementProperties.button.textContent = document.getElementById(
+          'chkButtonTextContent',
+        ).checked;
+        config.elementProperties.label = {};
+        config.elementProperties.label.textContent = document.getElementById(
+          'chkLabelTextContent',
+        ).checked;
+        config.voiceVolume = {};
+        config.voiceVolume.min = Number(
+          document.getElementById('voiceVolumeMin').value,
+        );
+        config.voiceVolume.max = Number(
+          document.getElementById('voiceVolumeMax').value,
+        );
+        config.voiceVolume.value = Number(
+          document.getElementById('voiceVolume').value,
+        );
+        config.deviceVolume = {};
+        config.deviceVolume.min = Number(
+          document.getElementById('deviceVolumeMin').value,
+        );
+        config.deviceVolume.max = Number(
+          document.getElementById('deviceVolumeMax').value,
+        );
+        config.speechRate = {};
+        config.speechRate.min = Number(
+          document.getElementById('speechRateMin').value,
+        );
+        config.speechRate.max = Number(
+          document.getElementById('speechRateMax').value,
+        );
+        config.speechRate.value = Number(
+          document.getElementById('speechRate').value,
+        );
+
+        window.Agent.Accessibility.setConfiguration(config);
+      };
+
+      window.Agent.onReady(() => {
+        init();
+        window.Agent.Accessibility.onConfigurationChanged(() => init());
+      });
+
+      document
+        .getElementById('btnSaveConfig')
+        .addEventListener('click', () => readConfiguration());
     </script>
-</body>
+  </body>
 </html>
