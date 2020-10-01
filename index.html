@@ -32,6 +32,11 @@
 <body>
     <h1>MeldCX AgentM Accessibility Example App</h1>
     <hr>
+    <a data-read-as-digits tabIndex="0">The following number will be read as independant digits and "symbols". 1,223.44</a><br>
+    <a tabIndex="0">The following number will be read as a whole. 781.44</a><br>
+    <a tabIndex="0" data-read-as-digits>The following will be read as independant digits and can tolerate symbols. Room #756</a><br>
+    <br>
+    <input type="text" value="Custom Welcome message" id="inpWelcomeMsg"/><button id="btnWelcomeMsg">Set</button> Test by removing and inserting the headphones in the virtual AudioNav Pad.
     <br>
     <p>
         Dialog example can be found <a href="dialog.html">here</a>.
@@ -588,6 +593,17 @@
         window.Agent.onReady(() => {
             init();
             window.Agent.Accessibility.onConfigurationChanged(() => init());
+
+            const txtWelcomeMsg = document.getElementById('inpWelcomeMsg')
+            const btnWelcomeMsg = document.getElementById('btnWelcomeMsg');
+            btnWelcomeMsg.addEventListener('click', async() => {
+                try {
+                    console.log('Setting welcome message to', txtWelcomeMsg.value);
+                    await window.Agent.Accessibility.setMessage(Agent.Accessibility.Messages.WELCOME, txtWelcomeMsg.value);
+                } catch (ex) {
+                    console.error(ex);
+                }
+            });
         });
 
         document.getElementById('btnSaveConfig').addEventListener('click', () => readConfiguration());
