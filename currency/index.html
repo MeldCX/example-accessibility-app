@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- MAR-127: ADA | Amount is not reading correctly in hundreds: -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="https://storage.googleapis.com/assets.meld.cx/agent/1.0.42/Agent.js"></script>
+    <style>
+      html,
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      Ensure that both 781.44 USD and 1,223.44 USD should be read as whole like
+      One Thousand Two hundred Twenty three United State Dollars and 44 cents.
+    </h1>
+    <a tabindex="0"
+      >The following number should be read as a whole. 781.44 USD</a
+    ><br />
+    <a tabindex="0"
+      >The following number should be read as a whole. 1,223.44 USD</a
+    ><br />
+    <a tabindex="0">The following should be read as whole #756</a><br />
+    <!-- Extra Currency tests -->
+    <h1>
+      Ensure that both 781.44 USD and 1,223.44 USD should be read as independent
+      digits like Seven Eight One point Four Four USD
+    </h1>
+    <h1>'#' should be read as 'Number'. '.' should be read as 'point'</h1>
+    <a data-read-as-digits tabindex="0"
+      >The following number should be read as independant digits and "symbols" .
+      1,223.44 USD</a
+    ><br />
+    <a data-read-as-digits tabindex="0"
+      >The following number should be read as independant digits and symbols
+      781.44 USD</a
+    ><br />
+    <a data-read-as-digits tabindex="0"
+      >The following should be read as independant digits and can have symbols
+      Room #756</a
+    ><br />
+  </body>
+</html>
