@@ -1,107 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-    <script src="https://storage.googleapis.com/assets.meld.cx/agent/1.0.33/Agent.js"></script>
+    <script src="https://storage.googleapis.com/assets.meld.cx/agent/1.0.42/Agent.js"></script>
     <style>
-        html, body {
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        dialog {
-            width: 75vw;
-            height: 33vh;
-            margin-left: 12.5vw;
-            margin-top: calc((100vh - 33vh) / 2);
-        }
-
-        .modalBackground {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(204, 204, 204, 0.5);
-            z-index: 999;
-        }
-
-        .modal {
-            position: fixed;
-            border: 3px solid black;
-            background-color: white;
-            width: 75vw;
-            height: 33vh;
-            left: 12.5vw;
-            top: calc((100vh - 33vh) / 2);
-            z-index: 1000;
-            padding: 10px 10px 10px 10px;
-        }
+      html,
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      dialog {
+        width: 75vw;
+        height: 33vh;
+        margin-left: 12.5vw;
+        margin-top: calc((100vh - 33vh) / 2);
+      }
+      .modalBackground {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(204, 204, 204, 0.5);
+        z-index: 999;
+      }
+      .modal {
+        position: fixed;
+        border: 3px solid black;
+        background-color: white;
+        width: 75vw;
+        height: 33vh;
+        left: 12.5vw;
+        top: calc((100vh - 33vh) / 2);
+        z-index: 1000;
+        padding: 10px 10px 10px 10px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <h1 id="heading1">Modal & Dialog Example</h1>
-    <hr>
-    <br>
-    <label for="btnDialogOpen">Open Built-in Dialog</label>
-    <button id="btnDialogOpen">Open</button>
-    <label for="btnModalOpen">Open Custom Modal</label>
-    <button id="btnModalOpen">Open</button>
-    <dialog id="dlgBuiltIn" aria-flowto="heading1">
-        <h1>This is a built-in dialog</h1>
-        <strong>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate, voluptas! Incidunt, vitae cum maiores dolores harum molestias aperiam libero alias facere labore, nam magnam accusamus eum, a praesentium rerum nostrum!</strong>
-        <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae velit veritatis quidem ut aut. Suscipit accusamus, rem quis laboriosam repellendus doloribus dicta dolor ullam cum alias deleniti, optio ex quo?<br>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit culpa sed dolorum tempore iusto numquam! Aliquam blanditiis deleniti quae natus facilis fuga laborum aliquid repudiandae, beatae dolor, minus, nisi iste.<br>
-            <br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, distinctio sint dolorum laboriosam dicta fugit est ducimus possimus explicabo recusandae. Accusamus quidem eligendi a dicta consequatur assumenda facere quisquam. Ipsam.
-        </p>
-        <button id="btnDialogClose" aria-label="Close Modal">Close</button>
+    <hr />
+    <br />
+    <label id="labelDialogOpen" for="btnDialogOpen">Open Built-in Dialog</label>
+    <button id="btnDialogOpen" aria-labelledby="labelDialogOpen">Open</button>
+    <label id="labelModalOpen" for="btnModalOpen">Open custom Modal</label>
+    <button id="btnModalOpen" aria-labelledby="labelModalOpen">Open</button>
+    <dialog id="dlgBuiltIn" aria-flowto="btnDialogClose" aria-hidden="true">
+      <h1>This is a built-in dialog</h1>
+      <strong
+        >Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate,
+        voluptas! Incidunt, vitae cum maiores dolores harum molestias aperiam
+        libero alias facere labore, nam magnam accusamus eum, a praesentium
+        rerum nostrum!</strong
+      >
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae velit
+        veritatis quidem ut aut. Suscipit accusamus, rem quis laboriosam
+        repellendus doloribus dicta dolor ullam cum alias deleniti, optio ex
+        quo?<br />
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit culpa sed
+        dolorum tempore iusto numquam! Aliquam blanditiis deleniti quae natus
+        facilis fuga laborum aliquid repudiandae, beatae dolor, minus, nisi
+        iste.<br />
+        <br />Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi,
+        distinctio sint dolorum laboriosam dicta fugit est ducimus possimus
+        explicabo recusandae. Accusamus quidem eligendi a dicta consequatur
+        assumenda facere quisquam. Ipsam.
+      </p>
+      <button id="btnDialogExit" aria-label="Exit Modal" aria-hidden="true">
+        Exit
+      </button>
+      <button id="btnDialogClose" aria-label="Close Modal" aria-hidden="true">
+        Close
+      </button>
     </dialog>
-    <div class="modalBackground" id="mdlCustom" aria-flowto="heading1">
-        <div class="modal">
-            <h1>This is a custom modal</h1>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae velit veritatis quidem ut aut. Suscipit accusamus, rem quis laboriosam repellendus doloribus dicta dolor ullam cum alias deleniti, optio ex quo?<br>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit culpa sed dolorum tempore iusto numquam! Aliquam blanditiis deleniti quae natus facilis fuga laborum aliquid repudiandae, beatae dolor, minus, nisi iste.<br>
-                <br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, distinctio sint dolorum laboriosam dicta fugit est ducimus possimus explicabo recusandae. Accusamus quidem eligendi a dicta consequatur assumenda facere quisquam. Ipsam.
-            </p>
-            <button id="btnModalClose" aria-label="Close Modal">Close</button>
-        </div>
+    <div
+      class="modalBackground"
+      id="mdlCustom"
+      aria-flowto="btnModalClose"
+      aria-hidden="true"
+    >
+      <div class="modal">
+        <h1>This is a custom modal</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae velit
+          veritatis quidem ut aut. Suscipit accusamus, rem quis laboriosam
+          repellendus doloribus dicta dolor ullam cum alias deleniti, optio ex
+          quo?<br />
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit culpa
+          sed dolorum tempore iusto numquam! Aliquam blanditiis deleniti quae
+          natus facilis fuga laborum aliquid repudiandae, beatae dolor, minus,
+          nisi iste.<br />
+          <br />Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi,
+          distinctio sint dolorum laboriosam dicta fugit est ducimus possimus
+          explicabo recusandae. Accusamus quidem eligendi a dicta consequatur
+          assumenda facere quisquam. Ipsam.
+        </p>
+        <button id="btnModalClose" aria-label="Close Modal" aria-hidden="true">
+          Close
+        </button>
+        <button id="btnModalExit" aria-label="Exit Modal" aria-hidden="true">
+          Exit
+        </button>
+      </div>
     </div>
     <script>
-        const dialog = document.getElementById('dlgBuiltIn');
-        const modal = document.getElementById('mdlCustom');
+      const dialog = document.getElementById("dlgBuiltIn");
+      const modal = document.getElementById("mdlCustom");
+      const btnDialogOpen = document.getElementById("btnDialogOpen");
+      const btnDialogClose = document.getElementById("btnDialogClose");
+      const btnDialogExit = document.getElementById("btnDialogExit");
+      const btnModalOpen = document.getElementById("btnModalOpen");
+      const btnModalClose = document.getElementById("btnModalClose");
+      const btnModalExit = document.getElementById("btnModalExit");
+      // setup event listeners
+      btnDialogOpen.addEventListener("click", () => openDialog());
+      btnDialogClose.addEventListener("click", () => closeDialog());
+      btnDialogExit.addEventListener("click", () => closeDialog());
+      btnModalOpen.addEventListener("click", () => openModal());
+      btnModalClose.addEventListener("click", () => closeModal());
+      btnModalExit.addEventListener("click", () => closeModal());
 
-        const btnDialogOpen = document.getElementById('btnDialogOpen');
-        const btnDialogClose = document.getElementById('btnDialogClose');
+      // define aria methods
+      const ariaHide = elements =>
+        elements.forEach(el => el.setAttribute("aria-hidden", "true"));
+      const ariaShow = elements =>
+        elements.forEach(el => el.setAttribute("aria-hidden", "false"));
+      const query = selector => {
+        const elements = [];
+        document.querySelectorAll(selector).forEach(el => elements.push(el));
+        return elements;
+      };
+      // gather all interactable elements
+      const allButtons = query("button");
+      const dialogButtons = query("#dlgBuiltIn button");
+      const modalButtons = query("#mdlCustom button");
+      const otherButtons = allButtons.filter(
+        button =>
+          !dialogButtons.includes(button) && !modalButtons.includes(button)
+      );
+      // hide/show components as necessary on startup
+      ariaShow(otherButtons);
+      ariaHide(dialogButtons);
+      ariaHide(modalButtons);
+      // define modal interaction functions
+      function openDialog() {
+        ariaHide(otherButtons);
+        ariaShow(dialogButtons);
+        dialog.style.visibility = "visible";
+        dialog.style.display = "block";
+        window.mcxAccessibility?.moveToElement(btnDialogClose);
+      }
+      function openModal() {
+        ariaHide(otherButtons);
+        ariaShow(modalButtons);
+        modal.style.visibility = "visible";
+        modal.style.display = "inline-block";
+        window.mcxAccessibility?.moveToElement(btnModalClose);
+      }
+      function closeDialog() {
+        ariaShow(otherButtons);
+        ariaHide(dialogButtons);
+        dialog.style.visibility = "hidden";
+        dialog.style.display = "none";
+        window.mcxAccessibility?.moveToElement(btnDialogOpen);
+      }
 
-        const btnModalOpen = document.getElementById('btnModalOpen');
-        const btnModalClose = document.getElementById('btnModalClose');
-
-        const modalFirstElement = document.querySelector('.modal > *');
-
-        btnDialogOpen.addEventListener('click', () => {
-            window.mcxAccessibility.moveToElement(dialog.querySelector('*'))
-            dialog.showModal();
-        });
-
-        btnDialogClose.addEventListener('click', () => {
-            window.mcxAccessibility.moveToElement(btnDialogOpen)
-            dialog.close();
-        });
-
-        btnModalOpen.addEventListener('click', () => {
-            window.mcxAccessibility.moveToElement(modal.querySelector('div > *'))
-            modal.style.display = 'inline-block';
-        });
-
-        btnModalClose.addEventListener('click', () => {
-            window.mcxAccessibility.moveToElement(btnModalOpen)
-            modal.style.display = 'none';
-        });
+      function closeModal() {
+        ariaShow(otherButtons);
+        ariaHide(modalButtons);
+        modal.style.visibility = "hidden";
+        modal.style.display = "none";
+        window.mcxAccessibility?.moveToElement(btnModalOpen);
+      }
     </script>
-</body>
+  </body>
 </html>
