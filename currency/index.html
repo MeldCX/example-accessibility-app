@@ -1,77 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-    <!-- MAR-127: ADA | Amount is not reading correctly in hundreds: -->
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Document</title>
+  <!-- MAR-127: ADA | Amount is not reading correctly in hundreds: -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
 
-        <script src="https://storage.googleapis.com/assets.meld.cx/agent/1.0.42/Agent.js"></script>
+    <script src="https://storage.googleapis.com/assets.meld.cx/agent/1.0.42/Agent.js"></script>
 
-        <style>
-            html,
-            body {
-                font-family: Arial, Helvetica, sans-serif;
-            }
-        </style>
-    </head>
-    <body>
-        <script>
-            let mcxReady = new Promise(resolve => window.addEventListener("mcxAccessibilityReady", () => resolve()));
-            const getConfigValue = async () => {
-              console.log('getConfigValue')
-              await mcxReady;
-              await window.Agent.onReadyAsync();
-              const config = await window.Agent.Accessibility.getConfiguration();
-              document.getElementById('currentReadNumbersAsDigits').innerHTML = `Current Value of readNumbersAsDigits is : ${config.readNumbersAsDigits}`
-            }
-            const toggleReadNumbersAsDigits = async() => {
-              await mcxReady;
-              await window.Agent.onReadyAsync();
-              const config = await window.Agent.Accessibility.getConfiguration();
-              await window.Agent.Accessibility.setConfiguration({readNumbersAsDigits:!config.readNumbersAsDigits});
-              await getConfigValue();
-              window.location.reload();
-            }
-        </script>
-        <h1>
-            Ensure that both 781.44 USD and 1,223.44 USD should be read as whole like One Thousand
-            Two hundred Twenty three United State Dollars and 44 cents.
-        </h1>
-        <h1>'#' should be read as 'Number'</h1>
-        <div>
-            <button
-                aria-label="Press click here to toggle read Numbers As Digits flag"
-                onClick="toggleReadNumbersAsDigits()"
-            >
-                Toggle readNumbersAsDigits
-            </button>
-        </div>
-        <div>
-            <label id="currentReadNumbersAsDigits">Loading.. current value of readNumbersAsDigits</label>
-        </div>
-        <br/>
-        <a tabindex="0">The following number should be read as a whole. 781.44 USD</a><br />
-        <a tabindex="0">The following number should be read as a whole. 1,223.44 USD</a><br />
-        <a tabindex="0">The following should be read as whole #756</a><br />
-        <!-- Extra Currency tests -->
-        <h1>
-            Ensure that both 781.44 USD and 1,223.44 USD should be read as independent digits like
-            Seven Eight One point Four Four USD
-        </h1>
-        <h1>'#' should be read as 'Pound'. '.' should be read as 'point'</h1>
-        <a data-read-as-digits tabindex="0"
-            >The following number should be read as independant digits and "symbols" 1,223.44 USD</a
-        ><br />
-        <a data-read-as-digits tabindex="0"
-            >The following number should be read as independant digits and symbols 781.44 USD</a
-        ><br />
-        <a data-read-as-digits tabindex="0"
-            >The following should be read as independant digits and can have symbols Room #756</a
-        ><br />
-        <script async>
-          getConfigValue();
-        </script>
-    </body>
+    <style>
+      html,
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      let mcxReady = new Promise(resolve =>
+        window.addEventListener("mcxAccessibilityReady", () => resolve())
+      );
+      const getConfigValue = async () => {
+        console.log("getConfigValue");
+        await mcxReady;
+        await window.Agent.onReadyAsync();
+        const config = await window.Agent.Accessibility.getConfiguration();
+        document.getElementById(
+          "currentReadNumbersAsDigits"
+        ).innerHTML = `Current Value of readNumbersAsDigits is : ${config.readNumbersAsDigits}`;
+      };
+      const toggleReadNumbersAsDigits = async () => {
+        await mcxReady;
+        await window.Agent.onReadyAsync();
+        const config = await window.Agent.Accessibility.getConfiguration();
+        await window.Agent.Accessibility.setConfiguration({
+          readNumbersAsDigits: !config.readNumbersAsDigits,
+        });
+        await getConfigValue();
+        window.location.reload();
+      };
+    </script>
+    <h1>
+      Ensure that both 781.44 USD and 1,223.44 USD should be read as whole like
+      One Thousand Two hundred Twenty three United State Dollars and 44 cents.
+    </h1>
+    <h1>'#' should be read as 'Number'</h1>
+    <div>
+      <button
+        aria-label="Press click here to toggle read Numbers As Digits flag"
+        onClick="toggleReadNumbersAsDigits()"
+      >
+        Toggle readNumbersAsDigits
+      </button>
+    </div>
+    <div>
+      <label id="currentReadNumbersAsDigits"
+        >Loading.. current value of readNumbersAsDigits</label
+      >
+    </div>
+    <br />
+    <a tabindex="0"
+      >The following number should be read as a whole. 781.44 USD</a
+    ><br />
+    <a tabindex="0"
+      >The following number should be read as a whole. 1,223.44 USD</a
+    ><br />
+    <a tabindex="0">The following should be read as whole #756</a><br />
+    <!-- Extra Currency tests -->
+    <h1>
+      Ensure that both 781.44 USD and 1,223.44 USD should be read as independent
+      digits like Seven Eight One point Four Four USD
+    </h1>
+
+    <h1>'#' should be read as 'Pound'. '.' should be read as 'point'</h1>
+    <a data-read-as-digits tabindex="0"
+      >The following number should be read as independant digits and "symbols"
+      1,223.44 USD</a
+    ><br />
+    <a data-read-as-digits tabindex="0"
+      >The following number should be read as independant digits and symbols
+      781.44 USD</a
+    ><br />
+    <a data-read-as-digits tabindex="0"
+      >The following should be read as independant digits and can have symbols
+      Room #756</a
+    ><br />
+     <span tabindex="0">This tag has issues</span>
+    <ol>
+      <li tabindex="0">
+        Upon receiving a key, the first night's charges will be applied to your
+        credit card on file.
+      </li>
+      <li tabindex="0">
+        Credit and Debit Card Processing
+        <ol type="a">
+          <li tabindex="0">
+            Upon check-in, your card issuing bank will place a hold on your
+            debit or credit card for room & tax charges, any applicable resort
+            fees, plus $50.00 for incidentals per day for the entire stay.
+          </li>
+          <li tabindex="0">
+            This hold will not be released by the issuing bank for up to five
+            (5) business days after your departure.
+          </li>
+          <li tabindex="0">
+            You authorize us to place this hold against your credit or debit
+            card to guarantee any and all charges and, in the event that you do
+            not settle your account subsequent to your departure, you hereby
+            authorize us to charge your credit or debit card or apply funds you
+            have on deposit with us against what you owe.
+          </li>
+        </ol>
+      </li>
+     
+      </li>
+    </ol>
+
+   
+
+    <script async>
+      getConfigValue();
+    </script>
+  </body>
 </html>
